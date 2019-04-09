@@ -25,8 +25,6 @@ The goals / steps of this project are the following:
 ---
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
 ### Data Set Summary & Exploration
 
 * The size of training set is 34799
