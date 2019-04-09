@@ -267,27 +267,3 @@ with tf.Session() as sess:
     print("My Data Set Accuracy = {:.3f}".format(my_accuracy))
 
 
-# Softmax Probabilites
-k_size = 5
-softmax_logits = tf.nn.softmax(logits)
-top_k = tf.nn.top_k(softmax_logits, k=k_size)
-
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    #     my_saver = tf.train.import_meta_graph('./lenet.meta')
-    saver.restore(sess, model_file)
-    my_softmax_logits = sess.run(softmax_logits, feed_dict={x: gray_new_signs, keep_prob: 1.0})
-    my_top_k = sess.run(top_k, feed_dict={x: gray_new_signs, keep_prob: 1.0})
-    print(my_top_k)
-
-    for i in range(6):
-        figures = {}
-        labels = {}
-
-        figures[0] = new_images[i]
-        labels[0] = "Original"
-
-        for j in range(k_size):
-            print('Guess {} : ({:.0f}%)'.format(j+1, 100*my_top_k[0][i][j]))
-            labels[j + 1] = 'Guess {} : ({:.0f}%)'.format(j + 1, 100 * my_top_k[0][i][j])
-            figures[j + 1] = X_valid[np.argwhere(y_valid == my_top_k[1][i][j])[0]].squeeze()
