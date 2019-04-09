@@ -19,7 +19,6 @@ The goals / steps of this project are the following:
 [image6]: ./new_images/Image4.png "Traffic Sign 3"
 [image7]: ./new_images/Image5.png "Traffic Sign 4"
 [image8]: ./new_images/Image6.png "Traffic Sign 5"
-[image9]: ./Output_Images/Softmax_TK2_Values.png "Visualization"
 [image10]: ./Output_Images/Guess_Success_Softmax.png "Visualization"
 
 ---
@@ -81,21 +80,14 @@ Here are six German traffic signs that I found on the web:
 
 In general, I picked these images due to them being on the more depective, clearer side of things. I expect my model should do a good job of classifying these specific images that I selected. 
 
-The results of analyzing the new images was 100% for the 6 test images that I looked at. This is better than the results of the test set, but this is most likely due to the specific images that were selected. 
-
-The result of the softmax TK2 applied to the new test images can be seen in the image below:
-
-
-![alt text][image9]
-
+The results of analyzing the new images was 100% for the 6 test images that I looked at. 
 
 The guess success rate can be seen in the following image:
 
 ![alt text][image10]
 
 
-
-As can be seen, the model was able to correctly identify the images that it was given. Like I described earlier, this could be due to the easier images that were used as the test images. 
+As can be seen, the model was able to correctly identify the images that it was given. 
 
 
 
