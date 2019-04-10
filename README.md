@@ -6,7 +6,6 @@ The goals / steps of this project are the following:
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
-* Summarize the results with a written report
 
 
 [//]: # (Image References)
