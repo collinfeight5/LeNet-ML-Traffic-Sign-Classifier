@@ -39,7 +39,7 @@ Here are multiple images that depict the type of data that is in the dataset. It
 
 ### Design and Test a Model Architecture
 
-As a first step, I decided to convert the images to grayscale. After reading a multitude of studies about image processing and using CCN', it seemed like the best move and ended up improving the speed of the algorithm. I also normalized the data because it improves efficency processing images. 
+As a first step, I decided to convert the images to grayscale. After reading a multitude of studies about image processing and using CCN', it seemed like the best approach. I also ended up using the dropout method which ended up improving the accuracy of the algorithm. Along with this, I normalized the data to improve the efficency processing images. 
 
 Here is an example of a traffic sign image before and after grayscaling/normalzing.
 
@@ -65,8 +65,8 @@ My final model consisted of the following architecture layout and layers:
 To train the model, I used the AdamOptimizer with a learning rate of .001, batch size of 64, and a total of 15 epochs. These were tested and tunned to get the best results. 
  
 My final model results were:
-* training set accuracy of 98.7%
-* validation set accuracy of 96%
+* training set accuracy of 99%
+* validation set accuracy of 96.1%
 * test set accuracy of 95.1%
 
 I decided to go with a well-known architecure model by using the LeNet model. I believed it would be good for several reasons. One of them being the LeNet architecture is known to be good for handling image processing. Another is the fact that we learned this method during our lessons so I was more familiar with it and understood more about what was happening behind the scenes of the model. I did apply the dropout method to the model, which slightly improved the results. 
