@@ -42,11 +42,8 @@ image_shape = X_train.shape[1:]
 # unique classes/labels there are in the dataset.
 n_classes = len(set(y_train))
 
-print("Number of training examples =", n_train)
-print("Number of validation examples =", n_validation)
-print("Number of testing examples =", n_test)
-print("Image data shape =", image_shape)
-print("Number of classes =", n_classes)
+name_values = np.genfromtxt('signnames.csv', skip_header=1, dtype=[('myint','i8'), ('mysring','S55')], delimiter=',')
+
 
 
 def plot(figures, rows, columns, labels=None):
@@ -115,7 +112,7 @@ def convolution(data, length_in, depth_in, length_out, depth_out):
     return tf.nn.relu(model)
 
 
-#Linear function used for fully connected layers
+# Linear function used for fully connected layers
 def linear(data, length_in, length_out):
     W = tf.Variable(tf.truncated_normal(shape=(length_in, length_out), mean=mu, stddev=sigma))
     b = tf.Variable(tf.zeros(length_out))
@@ -174,7 +171,7 @@ rate = .001
 prediction_inc = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot, 1))
 accuracy_inc = tf.reduce_mean(tf.cast(prediction_inc, tf.float32))
 
-# Make sure keep_prob stays one here for testing
+# Make sure keep_prob stays 1 here
 def eval(X, Y):
     num_list = len(X)
     total_accuracy = 0
@@ -222,48 +219,58 @@ def train(X, Y, prob):
 
 #### TRAIN DATA FUNCTION CALLED HERE
 
-#train(features_train, labels_train, .5)
+# train(features_train, labels_train, .8)
 
 ####
+# At this point, model has been successfully trained and can be used on any images
+
 # Loading in New Images from website
+
+
+def getnewsigns(new_signs_fnc, new_labels_fnc):
+    figures = {}
+    labels = {}
+    new_signs = []
+    count = 0
+    for sign in new_signs_fnc:
+        img = cv2.cvtColor(cv2.imread(sign), cv2.COLOR_BGR2RGB)
+        new_signs.append(img)
+        figures[count] = img
+        labels[count] = name_values[new_labels_fnc[count]][1].decode('ascii')
+        count += 1
+        # plot(figures, 3, 2, labels)
+    return new_signs
+
+
 new_images = sorted(glob.glob('new_images/Image*.png'))
 new_labels = np.array([1,22,35,15,37,18])
-figures = {}
-labels = {}
-my_new_signs = []
-index = 0
-name_values = np.genfromtxt('signnames.csv', skip_header=1, dtype=[('myint','i8'), ('mysring','S55')], delimiter=',')
-for image in new_images:
-    img = cv2.cvtColor(cv2.imread(image), cv2.COLOR_BGR2RGB)
-    my_new_signs.append(img)
-    figures[index] = img
-    labels[index] = name_values[new_labels[index]][1].decode('ascii')
-    index += 1
-#plot(figures, 3, 2, labels)
 
-my_new_signs = np.array(my_new_signs)
+my_new_signs = np.array(getnewsigns(new_images, new_labels))
 gray_new_signs = preprocess(my_new_signs)
 
-stop = 6
-figures = {}
-labels = {}
-for i in range(stop):
-    labels[i] = name_values[new_labels[i]][1].decode('ascii')
-    figures[i] = gray_new_signs[i].squeeze()
-plot(figures, 3, 2, labels)
+k_size = 5
+softmax_logits = tf.nn.softmax(logits)
+top_k = tf.nn.top_k(softmax_logits, k=k_size)
 
-## Runs evaluation pipeline on validation and test data to determine how well model was trained
+# Runs evaluation pipeline on validation and test data to determine how well model was trained
 with tf.Session() as sess:
-    #restores saved weights so dont have to retrain model before using on validation/testing/new image datasets
+    # restores saved weights so don't have to retrain model before using on validation/testing/new image data-sets
     saver.restore(sess, model_file)
-    train = eval(features_train, labels_train)
-    valid = eval(features_valid, labels_valid)
-    test = eval(features_test, labels_test)
-    print("accuracy in validation set: {:.3f}".format(train))
+    train_eval = eval(features_train, labels_train)
+    valid_eval = eval(features_valid, labels_valid)
+    test_eval = eval(features_test, labels_test)
+    print("accuracy in train set: {:.3f}".format(train_eval))
 
-    print("accuracy in validation set: {:.3f}".format(valid))
-    print("accuracy in test set: {:.3f}".format(test))
-    my_accuracy = eval(gray_new_signs, new_labels)
-    print("My Data Set Accuracy = {:.3f}".format(my_accuracy))
+    print("accuracy in validation set: {:.3f}".format(valid_eval))
+    #print("accuracy in test set: {:.3f}".format(test_eval))
+    my_accuracy_eval = eval(gray_new_signs, new_labels)
+    print("My Data Set Accuracy = {:.3f}".format(my_accuracy_eval))
+    my_softmax_logits = sess.run(softmax_logits, feed_dict={x: gray_new_signs, keep_prob: 1.0})
+    my_top_k = sess.run(top_k, feed_dict={x: gray_new_signs, keep_prob: 1.0})
+    for i in range(6):
+        for j in range(k_size):
+            print('Guess {} : ({:.0f}%)'.format(j+1, 100*my_top_k[0][i][j]))
+
+
 
 
