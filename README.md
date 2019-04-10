@@ -24,6 +24,7 @@ The goals / steps of this project are the following:
 ### Writeup / README
 
 ### Data Set Summary & Exploration
+Here is a link to the dataset that was used for this project: [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
 
 * The size of training set is 34799
 * The size of the validation set is 4410
