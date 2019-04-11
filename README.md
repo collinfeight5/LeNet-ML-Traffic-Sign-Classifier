@@ -24,6 +24,7 @@ The goals / steps of this project are the following:
 ### Writeup / README
 
 ### Data Set Summary & Exploration
+A link to the dataset that was used for this project: [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
 
 * The size of training set is 34799
 * The size of the validation set is 4410
@@ -31,14 +32,14 @@ The goals / steps of this project are the following:
 * The shape of a traffic sign image is (32,32,3) corresponding to RGB images
 * The number of unique classes/labels in the data set is 43
 
-Here is an exploratory visualization of the data set. It shows a collection of random traffic signs and the corresponding labels that they have. Note that the labels can be attached to traffic stop sign names using the signames.csv file that it apart of the data set.
+Here are multiple images that depict the type of data that is in the dataset. It shows a collection of random traffic signs and the corresponding labels that they have. Note that the labels can be attached to traffic stop sign names using the signames.csv file that it apart of the data set.
 
 
 ![alt text][image1]
 
 ### Design and Test a Model Architecture
 
-As a first step, I decided to convert the images to grayscale. After reading a multitude of studies about image processing and using CCN', it seemed like the best move and ended up improving the speed of the algorithm. I also normalized the data because it improves efficency processing images. 
+As a first step, I decided to convert the images to grayscale. After reading a multitude of studies about image processing and using CCN', it seemed like the best approach. I also ended up using the dropout method which ended up improving the accuracy of the algorithm. Along with this, I normalized the data to improve the efficency processing images. 
 
 Here is an example of a traffic sign image before and after grayscaling/normalzing.
 
@@ -64,9 +65,9 @@ My final model consisted of the following architecture layout and layers:
 To train the model, I used the AdamOptimizer with a learning rate of .001, batch size of 64, and a total of 15 epochs. These were tested and tunned to get the best results. 
  
 My final model results were:
-* training set accuracy of 97.7%
-* validation set accuracy of 95.3%
-* test set accuracy of 94.3%
+* training set accuracy of 99%
+* validation set accuracy of 96.1%
+* test set accuracy of 95.1%
 
 I decided to go with a well-known architecure model by using the LeNet model. I believed it would be good for several reasons. One of them being the LeNet architecture is known to be good for handling image processing. Another is the fact that we learned this method during our lessons so I was more familiar with it and understood more about what was happening behind the scenes of the model. I did apply the dropout method to the model, which slightly improved the results. 
 
