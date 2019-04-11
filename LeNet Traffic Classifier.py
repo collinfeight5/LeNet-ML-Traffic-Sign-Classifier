@@ -1,3 +1,10 @@
+#### Goal for this project was to create/train a ML framework that would achieve above a 93% accuracy on recognizing traffic signs
+#### Approach that was used was to use Lenet Architecture to train the model. 
+#### Written by Collin Feight
+
+
+
+
 import tensorflow as tf
 import pickle
 import numpy as np
