@@ -107,7 +107,8 @@ kernel_size = [1,2,2,1]
 pool_strides = [1, 2, 2, 1]
 padding_str = 'VALID'
 
-
+#out_height/width = ceil(float(in_height - filter_height + 1) / float(strides[1])) for valid padding
+#filter length in convolution is 'filter height' in above equation
 def convolution(data, length_in, depth_in, length_out, depth_out):
     filter_length = length_in-length_out + 1
     stride = [1,1,1,1]
