@@ -3,8 +3,6 @@
 #### Written by Collin Feight
 
 
-
-
 import tensorflow as tf
 import pickle
 import numpy as np
@@ -52,7 +50,6 @@ n_classes = len(set(y_train))
 name_values = np.genfromtxt('signnames.csv', skip_header=1, dtype=[('myint','i8'), ('mysring','S55')], delimiter=',')
 
 
-
 def plot(figures, rows, columns, labels=None):
     fig, axs = plt.subplots(ncols=columns, nrows=rows, figsize=(12, 14))
     axs = axs.ravel()
@@ -67,7 +64,6 @@ def plot(figures, rows, columns, labels=None):
 
     plt.tight_layout()
 
-
 ### Data exploration visualization code goes here.
 # Visualizations will be shown in the notebook.
 # fig, axs = plt.subplots(3,5, figsize=(15, 6))
@@ -81,16 +77,15 @@ def plot(figures, rows, columns, labels=None):
 #     axs[i].set_title(y_train[index])
 
 
-#Pre-Processing the data --> convert to grayscale and normalize
+# Pre-Processing the data --> convert to grayscale and normalize
 def preprocess(Data):
     # axis == rgb
     X_Train_Gray = np.sum(Data / 3, axis=3, keepdims=True)
     features_train = (X_Train_Gray-128)/128
     return features_train
 
+
 # Organize data so everything in terms of features and label
-
-
 features_train = preprocess(X_train)
 features_valid = preprocess(X_valid)
 features_test = preprocess(X_test)
@@ -106,6 +101,7 @@ sigma = .1
 kernel_size = [1,2,2,1]
 pool_strides = [1, 2, 2, 1]
 padding_str = 'VALID'
+
 
 #out_height/width = ceil(float(in_height - filter_height + 1) / float(strides[1])) for valid padding
 #filter length in convolution is 'filter height' in above equation
